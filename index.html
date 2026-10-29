@@ -399,23 +399,30 @@
     </button>
   </div>
 
-  <!-- SLIDE-OVER CART DRAWER -->
+<!-- SLIDE-OVER CART DRAWER -->
   <div id="cart-modal" class="fixed inset-0 z-50 hidden">
     <div onclick="toggleCart()" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-lab-card border-l border-lab-border p-6 flex flex-col justify-between overflow-y-auto">
-      <div>
-        <div class="flex items-center justify-between pb-4 border-b border-lab-border">
+    
+    <!-- Usando h-[100dvh] para respeitar a barra do navegador no celular e flex-col -->
+    <div class="absolute right-0 top-0 w-full max-w-md h-[100dvh] bg-lab-card border-l border-lab-border flex flex-col shadow-2xl">
+      
+      <!-- ÁREA SUPERIOR (Fixa) -->
+      <div class="shrink-0 p-6 pb-4 border-b border-lab-border">
+        <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <i data-lucide="flask-conical" class="w-5 h-5 text-lab-amber"></i>
             <h3 class="font-display font-bold text-lg">Sua Bancada de Pedido</h3>
           </div>
-          <button onclick="toggleCart()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+          <button onclick="toggleCart()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
+      </div>
 
-        <!-- Order Modality Selector (Dine-in, Takeout, Delivery) -->
-        <div class="mt-4">
+      <!-- ÁREA CENTRAL (Rolável) -->
+      <div class="flex-1 overflow-y-auto p-6 pt-4">
+        <!-- Order Modality Selector -->
+        <div>
           <label class="block font-mono text-[11px] text-slate-400 uppercase mb-2">Modalidade do Pedido:</label>
           <div class="grid grid-cols-3 gap-2 text-xs">
             <button onclick="setOrderMode('mesa')" id="mode-mesa" class="py-2 px-2 rounded-xl font-semibold border border-lab-amber bg-amber-500/15 text-lab-amber">
@@ -430,24 +437,24 @@
           </div>
         </div>
 
-        <!-- Dynamic Input based on Modality -->
-        <div class="mt-3">
-          <input id="order-detail-input" type="text" placeholder="Número da Mesa ou Comanda (ex: Mesa 08)" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-lab-border text-xs text-white focus:outline-none focus:border-lab-amber" />
+        <!-- Dynamic Input -->
+        <div class="mt-4">
+          <input id="order-detail-input" type="text" placeholder="Número da Mesa ou Comanda (ex: Mesa 08)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-lab-border text-xs text-white focus:outline-none focus:border-lab-amber" />
         </div>
 
         <!-- Cart Items List -->
-        <div id="cart-items-container" class="mt-5 space-y-3 max-h-[42vh] overflow-y-auto pr-1">
+        <div id="cart-items-container" class="mt-5 space-y-3">
           <!-- Populated via JS -->
         </div>
       </div>
 
-      <!-- Cart Summary & WhatsApp Checkout -->
-      <div class="pt-4 border-t border-lab-border mt-4 space-y-3">
-        <div class="flex justify-between items-center text-xs text-slate-400">
-          <span>Estimativa por pessoa (média Jolly: R$ 60–80)</span>
+      <!-- ÁREA INFERIOR (Fixa no final da tela) -->
+      <div class="shrink-0 p-6 border-t border-lab-border bg-lab-card">
+        <div class="flex justify-between items-center text-xs text-slate-400 mb-3">
+          <span>Estimativa por pessoa</span>
           <span id="cart-Lab-status" class="text-lab-emerald font-mono">Na medida!</span>
         </div>
-        <div class="flex justify-between items-center text-base font-bold">
+        <div class="flex justify-between items-center text-base font-bold mb-4">
           <span>Total do Pedido</span>
           <span id="cart-total-value" class="font-mono text-xl text-lab-amber">R$ 0,00</span>
         </div>
@@ -460,40 +467,45 @@
     </div>
   </div>
 
-  <!-- LAB MATCHER MODAL -->
-  <div id="matcher-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-    <div onclick="closeMatcherModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-    <div class="relative w-full max-w-lg rounded-2xl bg-lab-card border border-lab-border p-6 z-10 space-y-4">
-      <div class="flex justify-between items-center">
-        <span class="font-mono text-xs text-lab-emerald uppercase">ALGORITMO SENSORIAL JOLLY</span>
-        <button onclick="closeMatcherModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-      <h3 class="font-display text-xl font-bold">Qual é a sua vibe gastronômica hoje?</h3>
-      <p class="text-xs text-slate-400">Selecionamos combinações que ficam exatamente dentro da faixa de R$ 60–80 por pessoa com alta sinergia de sabor:</p>
-
-      <div class="space-y-3 pt-2">
-        <div onclick="addComboToCart(101, 201)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-lab-amber cursor-pointer transition flex justify-between items-center gap-3">
-          <div>
-            <span class="text-xs font-bold text-lab-amber">🔥 Combo #01: Defumado & Umami</span>
-            <p class="text-xs text-slate-300 mt-0.5">Elixir XV de Novembro + Croquetas de Costela Defumada com Aioli de Alho Negro</p>
-          </div>
-          <span class="font-mono font-bold text-sm text-white shrink-0">R$ 72</span>
+<!-- LAB MATCHER MODAL -->
+  <div id="matcher-modal" class="fixed inset-0 z-50 hidden">
+    <!-- Wrapper com h-[100dvh] para garantir o centro da tela sem bugar -->
+    <div class="w-full h-[100dvh] flex items-center justify-center p-4 relative">
+      <div onclick="closeMatcherModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+      
+      <!-- Modal box com overflow interno para não vazar da tela -->
+      <div class="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-2xl bg-lab-card border border-lab-border p-6 z-10 space-y-4 shadow-2xl">
+        <div class="flex justify-between items-center">
+          <span class="font-mono text-xs text-lab-emerald uppercase">ALGORITMO SENSORIAL JOLLY</span>
+          <button onclick="closeMatcherModal()" class="text-slate-400 hover:text-white transition"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
+        <h3 class="font-display text-xl font-bold">Qual é a sua vibe gastronômica hoje?</h3>
+        <p class="text-xs text-slate-400">Selecionamos combinações na faixa de R$ 60–80 com alta sinergia de sabor:</p>
 
-        <div onclick="addComboToCart(102, 301)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-lab-emerald cursor-pointer transition flex justify-between items-center gap-3">
-          <div>
-            <span class="text-xs font-bold text-lab-emerald">🌿 Combo #02: Botânico & Smash</span>
-            <p class="text-xs text-slate-300 mt-0.5">Gin Tônica Botânico (Pepino & Cardamomo) + Jolly Lab Burger c/ Cebola Caramelizada</p>
+        <div class="space-y-3 pt-2">
+          <div onclick="addComboToCart(101, 201)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-lab-amber cursor-pointer transition flex justify-between items-center gap-3">
+            <div>
+              <span class="text-xs font-bold text-lab-amber">🔥 Combo #01: Defumado & Umami</span>
+              <p class="text-xs text-slate-300 mt-0.5">Elixir XV de Novembro + Croquetas de Costela</p>
+            </div>
+            <span class="font-mono font-bold text-sm text-white shrink-0">R$ 72</span>
           </div>
-          <span class="font-mono font-bold text-sm text-white shrink-0">R$ 68</span>
-        </div>
 
-        <div onclick="addComboToCart(103, 203)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-red-400 cursor-pointer transition flex justify-between items-center gap-3">
-          <div>
-            <span class="text-xs font-bold text-red-400">🌶️ Combo #03: Tropical Picante (Veggie)</span>
-            <p class="text-xs text-slate-300 mt-0.5">Mule de Caju & Gengibre + Dadinhos de Tapioca com Geléia de Pimenta Defumada</p>
+          <div onclick="addComboToCart(102, 301)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-lab-emerald cursor-pointer transition flex justify-between items-center gap-3">
+            <div>
+              <span class="text-xs font-bold text-lab-emerald">🌿 Combo #02: Botânico & Smash</span>
+              <p class="text-xs text-slate-300 mt-0.5">Gin Tônica Botânico + Jolly Lab Burger</p>
+            </div>
+            <span class="font-mono font-bold text-sm text-white shrink-0">R$ 68</span>
           </div>
-          <span class="font-mono font-bold text-sm text-white shrink-0">R$ 62</span>
+
+          <div onclick="addComboToCart(103, 203)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-red-400 cursor-pointer transition flex justify-between items-center gap-3">
+            <div>
+              <span class="text-xs font-bold text-red-400">🌶️ Combo #03: Tropical Picante</span>
+              <p class="text-xs text-slate-300 mt-0.5">Mule de Caju & Gengibre + Dadinhos de Tapioca</p>
+            </div>
+            <span class="font-mono font-bold text-sm text-white shrink-0">R$ 62</span>
+          </div>
         </div>
       </div>
     </div>
@@ -828,6 +840,8 @@
     function toggleCart() {
       const modal = document.getElementById("cart-modal");
       modal.classList.toggle("hidden");
+      // Trava ou destrava o fundo
+      document.body.style.overflow = modal.classList.contains("hidden") ? "auto" : "hidden";
     }
 
     function setOrderMode(mode) {
@@ -885,10 +899,12 @@
 
     function openMatcherModal() {
       document.getElementById("matcher-modal").classList.remove("hidden");
+      document.body.style.overflow = "hidden"; // Trava o fundo
     }
 
     function closeMatcherModal() {
       document.getElementById("matcher-modal").classList.add("hidden");
+      document.body.style.overflow = "auto"; // Destrava o fundo
     }
 
     // Init
