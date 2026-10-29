@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jolly Gastro Lab | Menu Digital & Experiência — São Carlos, SP</title>
+  <meta name="description" content="Gastronomia experimental, drinks autorais e petiscos criativos no coração de São Carlos. R. 15 de Novembro, 1415 - Centro." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lab: {
+              bg: '#0B0D10',
+              card: '#13171D',
+              border: '#222934',
+              amber: '#F59E0B',
+              amberHover: '#D97706',
+              emerald: '#10B981',
+              muted: '#94A3B8'
+            }
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #0B0D10;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glass-nav {
+      background: rgba(11, 13, 16, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .lab-gradient {
+      background: radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.14) 0%, rgba(16, 185, 129, 0.06) 45%, rgba(11, 13, 16, 0) 75%);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-lab-amber selection:text-black pb-28">
+
+  <!-- TOP BAR / HEADER -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-lab-border">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-lab-amber to-amber-700 flex items-center justify-center text-black font-display font-bold text-xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+          <i data-lucide="flask-conical" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-display font-bold text-lg tracking-tight block leading-none">JOLLY <span class="text-lab-amber">GASTRO LAB</span></span>
+          <span class="font-mono text-[10px] text-lab-emerald tracking-widest uppercase">EXP. BAR • SÃO CARLOS</span>
+        </div>
+      </a>
+
+      <!-- Status & Actions -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        <div id="open-status-badge" class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-medium text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Aberto • Fecha às 22:30</span>
+        </div>
+
+        <a href="#reservas" class="px-3 py-2 rounded-lg bg-lab-card hover:bg-slate-800 border border-lab-border text-xs sm:text-sm font-medium transition flex items-center gap-1.5">
+          <i data-lucide="calendar-clock" class="w-4 h-4 text-lab-amber"></i>
+          <span>Reservar Mesa</span>
+        </a>
+
+        <button onclick="toggleCart()" class="relative p-2.5 rounded-xl bg-lab-amber text-black font-semibold hover:bg-lab-amberHover transition flex items-center gap-2 shadow-lg shadow-amber-500/20">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span id="header-cart-count" class="font-mono text-xs font-bold">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden lab-gradient border-b border-lab-border pt-8 pb-12 sm:py-16">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-7 space-y-5">
+        <!-- Social Proof & Google Rating -->
+        <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-lab-card border border-lab-border text-xs">
+          <span class="flex items-center gap-1 text-lab-amber font-bold">
+            <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i> 4,7
+          </span>
+          <span class="text-slate-400">(739 avaliações no Google)</span>
+          <span class="text-slate-600">•</span>
+          <span class="font-mono text-emerald-400">R$ 60–80 / pessoa</span>
+        </div>
+
+        <h1 class="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.12]">
+          Onde a <span class="text-transparent bg-clip-text bg-gradient-to-r from-lab-amber via-amber-300 to-lab-emerald">alquimia líquida</span> encontra a gastronomia de rua.
+        </h1>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+          Bem-vindo ao laboratório mais descontraído da Rua XV de Novembro. Drinks autorais infusionados na casa, petiscos experimentais e música boa para transformar sua noite em São Carlos.
+        </p>
+
+        <!-- Service Pills (Dine-in, Takeout, Delivery) -->
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <span class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-200 border border-slate-700">
+            <i data-lucide="utensils" class="w-3.5 h-3.5 text-lab-amber"></i> Refeição no local
+          </span>
+          <span class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-200 border border-slate-700">
+            <i data-lucide="package-check" class="w-3.5 h-3.5 text-lab-emerald"></i> Para viagem
+          </span>
+          <span class="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-slate-800/80 text-slate-200 border border-slate-700">
+            <i data-lucide="bike" class="w-3.5 h-3.5 text-lab-amber"></i> Entrega (Delivery)
+          </span>
+        </div>
+
+        <!-- Primary CTAs -->
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a href="#cardapio" class="px-6 py-3.5 rounded-xl bg-lab-amber hover:bg-lab-amberHover text-black font-bold text-sm transition flex items-center gap-2 shadow-lg shadow-amber-500/25">
+            <span>Explorar Cardápio Interativo</span>
+            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+          </a>
+          <button onclick="openMatcherModal()" class="px-5 py-3.5 rounded-xl bg-lab-card hover:bg-slate-800 text-white border border-emerald-500/40 font-semibold text-sm transition flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-lab-emerald"></i>
+            <span>Descobrir Minha Fórmula</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Featured Experiment Card -->
+      <div class="md:col-span-5">
+        <div class="relative rounded-2xl bg-lab-card border border-lab-border p-4 shadow-2xl">
+          <div class="absolute -top-3 right-4 px-3 py-1 rounded-full bg-lab-emerald text-black font-mono text-[11px] font-bold uppercase tracking-wider shadow">
+            Experimento #01 da Semana
+          </div>
+          <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80" alt="Drink Autoral Defumado" class="w-full h-52 sm:h-60 object-cover rounded-xl mb-4" />
+          <div class="flex justify-between items-start gap-2">
+            <div>
+              <span class="font-mono text-xs text-lab-amber">ALQUIMIA LÍQUIDA • 350ml</span>
+              <h3 class="font-display font-bold text-lg">Elixir XV de Novembro (Defumado)</h3>
+              <p class="text-xs text-slate-400 mt-1">Bourbon infusionado com casca de laranja Bahia, redução de maracujá com pimenta rosa e névoa de alecrim tostado na mesa.</p>
+            </div>
+            <span class="font-mono font-bold text-lg text-lab-amber shrink-0">R$ 34</span>
+          </div>
+          <button onclick="addToCart(101)" class="mt-4 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-lab-amber hover:text-black font-semibold text-xs transition flex items-center justify-center gap-2 border border-slate-700">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i> Adicionar à Bancada de Pedido
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAB MATCHER BANNER (Interactive Pairing Engine) -->
+  <section class="max-w-6xl mx-auto px-4 -mt-5 relative z-10">
+    <div class="rounded-2xl bg-gradient-to-r from-slate-900 via-lab-card to-slate-900 border border-lab-border p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-lab-emerald shrink-0">
+          <i data-lucide="test-tubes" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="font-display font-bold text-sm sm:text-base flex items-center gap-2">
+            Harmonizador Sensorial do Lab
+            <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Interativo</span>
+          </h2>
+          <p class="text-xs text-slate-400">Indeciso? Escolha seu paladar de hoje e receba o combo ideal de Prato + Drink na faixa de R$ 60–80.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+        <button onclick="applyMoodFilter('defumado')" class="flex-1 sm:flex-initial px-3 py-2 rounded-lg bg-slate-800 hover:bg-amber-500/20 hover:border-lab-amber border border-slate-700 text-xs font-medium transition">
+          🔥 Intenso & Defumado
+        </button>
+        <button onclick="applyMoodFilter('citrico')" class="flex-1 sm:flex-initial px-3 py-2 rounded-lg bg-slate-800 hover:bg-emerald-500/20 hover:border-lab-emerald border border-slate-700 text-xs font-medium transition">
+          🍋 Cítrico & Refrescante
+        </button>
+        <button onclick="applyMoodFilter('picante')" class="flex-1 sm:flex-initial px-3 py-2 rounded-lg bg-slate-800 hover:bg-red-500/20 hover:border-red-400 border border-slate-700 text-xs font-medium transition">
+          🌶️ Agridoce & Picante
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE DIGITAL MENU -->
+  <main id="cardapio" class="max-w-6xl mx-auto px-4 pt-10">
+
+    <!-- Search & Dietary Filter Controls -->
+    <div class="flex flex-col md:flex-row gap-4 justify-between items-stretch md:items-center mb-6">
+      <div>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold">Cardápio do Laboratório</h2>
+        <p class="text-xs sm:text-sm text-slate-400">Toque em qualquer item para ver detalhes técnicos, alergênicos e sugestão de harmonização.</p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative w-full md:w-80">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input
+          id="menu-search"
+          type="text"
+          oninput="renderMenu()"
+          placeholder="Buscar drink, ingrediente, burger..."
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-lab-card border border-lab-border text-sm text-white placeholder-slate-500 focus:outline-none focus:border-lab-amber transition"
+        />
+      </div>
+    </div>
+
+    <!-- Category Tabs (Sticky Horizontal Scroll on Mobile) -->
+    <div class="sticky top-[61px] z-30 glass-nav py-3 -mx-4 px-4 border-b border-lab-border mb-6">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="category-tabs">
+        <button onclick="setCategory('todos')" data-cat="todos" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-amber text-black">
+          ⚡ Todos os Experimentos
+        </button>
+        <button onclick="setCategory('drinks')" data-cat="drinks" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-card text-slate-300 border border-lab-border hover:border-slate-600">
+          🧪 Alquimias Líquidas (Drinks)
+        </button>
+        <button onclick="setCategory('petiscos')" data-cat="petiscos" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-card text-slate-300 border border-lab-border hover:border-slate-600">
+          🔥 Petiscos de Bancada (Compartilhar)
+        </button>
+        <button onclick="setCategory('burgers')" data-cat="burgers" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-card text-slate-300 border border-lab-border hover:border-slate-600">
+          🍔 Burgers & Sanduíches Autorais
+        </button>
+        <button onclick="setCategory('cervejas')" data-cat="cervejas" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-card text-slate-300 border border-lab-border hover:border-slate-600">
+          🍺 Chopes & Poções Sem Álcool
+        </button>
+      </div>
+
+      <!-- Quick Tag Filters -->
+      <div class="flex items-center gap-2 mt-2.5 overflow-x-auto no-scrollbar text-xs">
+        <span class="text-slate-500 font-mono text-[11px] shrink-0">FILTRAR:</span>
+        <button onclick="toggleTagFilter('veggie')" id="tag-veggie" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0">
+          🌱 Opção Veggie
+        </button>
+        <button onclick="toggleTagFilter('favorito')" id="tag-favorito" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0">
+          ⭐ Mais Pedidos
+        </button>
+        <button onclick="toggleTagFilter('sem-gluten')" id="tag-sem-gluten" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0">
+          🌾 Sem Glúten
+        </button>
+        <button onclick="resetFilters()" id="reset-filter-btn" class="hidden px-2.5 py-1 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300 transition shrink-0">
+          ✕ Limpar Filtros
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Grid -->
+    <div id="menu-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Populated dynamically via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden text-center py-14 bg-lab-card rounded-2xl border border-lab-border my-4">
+      <i data-lucide="flask-round" class="w-10 h-10 text-slate-500 mx-auto mb-2"></i>
+      <h3 class="font-display font-bold text-lg">Nenhuma fórmula encontrada</h3>
+      <p class="text-xs text-slate-400 mt-1 mb-4">Tente buscar outro ingrediente ou limpe os filtros selecionados.</p>
+      <button onclick="resetFilters()" class="px-4 py-2 rounded-xl bg-lab-amber text-black font-bold text-xs">Mostrar Todo o Cardápio</button>
+    </div>
+
+  </main>
+
+  <!-- LOCATION, AMBIENCE & RESERVATIONS SECTION -->
+  <section id="reservas" class="max-w-6xl mx-auto px-4 mt-16">
+    <div class="rounded-3xl bg-lab-card border border-lab-border overflow-hidden grid lg:grid-cols-12">
+      <!-- Info Column -->
+      <div class="lg:col-span-7 p-6 sm:p-10 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-lab-amber font-mono text-xs">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> PONTO DE ENCONTRO EM SÃO CARLOS
+        </div>
+
+        <h2 class="font-display text-2xl sm:text-3xl font-bold">
+          No coração da Rua XV de Novembro
+        </h2>
+
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Ambiente intimista, trilha sonora selecionada, noites de música ao vivo e bancada aberta para quem gosta de descobrir novos sabores. Perfeito para happy hour, encontros ou comemorações com amigos.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+            <span class="font-mono text-[11px] text-slate-400 uppercase">Endereço & Plus Code</span>
+            <p class="font-semibold text-sm mt-1">R. 15 de Novembro, 1415 - Centro</p>
+            <p class="text-xs text-slate-400">São Carlos - SP, 13560-241</p>
+            <p class="font-mono text-[11px] text-lab-emerald mt-1">Plus Code: X4Q3+26 Centro</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+            <span class="font-mono text-[11px] text-slate-400 uppercase">Atendimento & Reservas</span>
+            <p class="font-semibold text-sm mt-1">Aberto • Fecha às 22:30</p>
+            <p class="text-xs text-slate-400">Pico de movimento: Sábados às 21h</p>
+            <p class="font-mono text-xs text-lab-amber mt-1">(16) 99621-1040</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button onclick="sendWhatsAppReservation()" class="px-5 py-3 rounded-xl bg-lab-emerald hover:bg-emerald-400 text-black font-bold text-xs sm:text-sm transition flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Reservar Mesa pelo WhatsApp</span>
+          </button>
+
+          <a href="https://www.google.com/maps/place/Jolly+Gastro+Lab/@-22.012458,-47.8995554,17z/data=!3m1!4b1!4m6!3m5!1s0x94b877b7e8bb0847:0xc9b2c9ef0d5fdb3a!8m2!3d-22.012458!4d-47.8969805!16s%2Fg%2F11f73_2xjq" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs sm:text-sm transition flex items-center gap-2 border border-slate-700">
+            <i data-lucide="navigation" class="w-4 h-4 text-lab-amber"></i>
+            <span>Traçar Rota no Google Maps</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Quick Reservation Form -->
+      <div class="lg:col-span-5 bg-slate-900/80 border-t lg:border-t-0 lg:border-l border-lab-border p-6 sm:p-8 flex flex-col justify-between">
+        <div>
+          <h3 class="font-display font-bold text-lg flex items-center gap-2">
+            <i data-lucide="Flame" class="w-5 h-5 text-lab-amber"></i>
+            Agendar Experiência / Happy Hour
+          </h3>
+          <p class="text-xs text-slate-400 mt-1 mb-5">Garanta sua mesa sem fila, especialmente nas quintas, sextas e sábados.</p>
+
+          <div class="space-y-3.5 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Seu Nome</label>
+              <input id="res-name" type="text" placeholder="Ex: Lucas Oliveira" class="w-full px-3.5 py-2.5 rounded-xl bg-lab-card border border-lab-border text-white focus:outline-none focus:border-lab-amber" />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-slate-400 mb-1">Nº de Pessoas</label>
+                <select id="res-guests" class="w-full px-3.5 py-2.5 rounded-xl bg-lab-card border border-lab-border text-white focus:outline-none focus:border-lab-amber">
+                  <option value="2 pessoas">2 pessoas</option>
+                  <option value="4 pessoas" selected>4 pessoas</option>
+                  <option value="6 pessoas">6 pessoas</option>
+                  <option value="8+ pessoas (Aniversário/Grupo)">8+ (Grupo)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Horário Previsto</label>
+                <select id="res-time" class="w-full px-3.5 py-2.5 rounded-xl bg-lab-card border border-lab-border text-white focus:outline-none focus:border-lab-amber">
+                  <option value="18:30">18:30 (Happy Hour)</option>
+                  <option value="19:30">19:30</option>
+                  <option value="20:30" selected>20:30</option>
+                  <option value="21:15">21:15</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Preferência de Ambiente</label>
+              <select id="res-area" class="w-full px-3.5 py-2.5 rounded-xl bg-lab-card border border-lab-border text-white focus:outline-none focus:border-lab-amber">
+                <option value="Salão Principal (Próximo à música)">Salão Principal</option>
+                <option value="Próximo ao Balcão do Lab">Próximo ao Balcão de Drinks</option>
+                <option value="Área Externa / Descontraída">Área mais tranquila para conversa</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="sendCustomReservation()" class="mt-6 w-full py-3 rounded-xl bg-lab-amber hover:bg-lab-amberHover text-black font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+          <i data-lucide="send" class="w-4 h-4"></i> Confirmar Reserva no WhatsApp
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="max-w-6xl mx-auto px-4 mt-14 pt-8 border-t border-lab-border text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div>
+      <span class="font-display font-bold text-slate-300">JOLLY GASTRO LAB</span> — R. 15 de Novembro, 1415 - Centro, São Carlos - SP
+    </div>
+    <div class="font-mono text-[11px]">
+      Informação de Alergênicos conforme RDC 26/2015 ANVISA • Beba com moderação.
+    </div>
+  </footer>
+
+  <!-- FLOATING BOTTOM CART BAR -->
+  <div id="floating-cart-bar" class="fixed bottom-4 inset-x-4 max-w-xl mx-auto z-40 hidden">
+    <button onclick="toggleCart()" class="w-full p-4 rounded-2xl bg-gradient-to-r from-lab-amber to-amber-500 text-black font-bold shadow-2xl shadow-amber-500/30 flex items-center justify-between transition transform hover:scale-[1.01]">
+      <div class="flex items-center gap-3">
+        <span id="bottom-cart-count" class="w-7 h-7 rounded-lg bg-black text-lab-amber font-mono text-xs flex items-center justify-center">0</span>
+        <span class="text-sm">Ver Bancada de Pedido</span>
+      </div>
+      <div class="flex items-center gap-2 font-mono text-sm">
+        <span id="bottom-cart-total">R$ 0,00</span>
+        <i data-lucide="chevron-up" class="w-4 h-4"></i>
+      </div>
+    </button>
+  </div>
+
+  <!-- SLIDE-OVER CART DRAWER -->
+  <div id="cart-modal" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleCart()" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-lab-card border-l border-lab-border p-6 flex flex-col justify-between overflow-y-auto">
+      <div>
+        <div class="flex items-center justify-between pb-4 border-b border-lab-border">
+          <div class="flex items-center gap-2">
+            <i data-lucide="flask-conical" class="w-5 h-5 text-lab-amber"></i>
+            <h3 class="font-display font-bold text-lg">Sua Bancada de Pedido</h3>
+          </div>
+          <button onclick="toggleCart()" class="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <!-- Order Modality Selector (Dine-in, Takeout, Delivery) -->
+        <div class="mt-4">
+          <label class="block font-mono text-[11px] text-slate-400 uppercase mb-2">Modalidade do Pedido:</label>
+          <div class="grid grid-cols-3 gap-2 text-xs">
+            <button onclick="setOrderMode('mesa')" id="mode-mesa" class="py-2 px-2 rounded-xl font-semibold border border-lab-amber bg-amber-500/15 text-lab-amber">
+              🍽️ Na Mesa
+            </button>
+            <button onclick="setOrderMode('viagem')" id="mode-viagem" class="py-2 px-2 rounded-xl font-semibold border border-lab-border bg-slate-900 text-slate-400">
+              🛍️ Retirada
+            </button>
+            <button onclick="setOrderMode('entrega')" id="mode-entrega" class="py-2 px-2 rounded-xl font-semibold border border-lab-border bg-slate-900 text-slate-400">
+              🛵 Delivery
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Input based on Modality -->
+        <div class="mt-3">
+          <input id="order-detail-input" type="text" placeholder="Número da Mesa ou Comanda (ex: Mesa 08)" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-lab-border text-xs text-white focus:outline-none focus:border-lab-amber" />
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="mt-5 space-y-3 max-h-[42vh] overflow-y-auto pr-1">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+
+      <!-- Cart Summary & WhatsApp Checkout -->
+      <div class="pt-4 border-t border-lab-border mt-4 space-y-3">
+        <div class="flex justify-between items-center text-xs text-slate-400">
+          <span>Estimativa por pessoa (média Jolly: R$ 60–80)</span>
+          <span id="cart-Lab-status" class="text-lab-emerald font-mono">Na medida!</span>
+        </div>
+        <div class="flex justify-between items-center text-base font-bold">
+          <span>Total do Pedido</span>
+          <span id="cart-total-value" class="font-mono text-xl text-lab-amber">R$ 0,00</span>
+        </div>
+
+        <button onclick="checkoutWhatsApp()" class="w-full py-3.5 rounded-xl bg-lab-emerald hover:bg-emerald-400 text-black font-bold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Enviar Pedido para (16) 99621-1040</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAB MATCHER MODAL -->
+  <div id="matcher-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div onclick="closeMatcherModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="relative w-full max-w-lg rounded-2xl bg-lab-card border border-lab-border p-6 z-10 space-y-4">
+      <div class="flex justify-between items-center">
+        <span class="font-mono text-xs text-lab-emerald uppercase">ALGORITMO SENSORIAL JOLLY</span>
+        <button onclick="closeMatcherModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <h3 class="font-display text-xl font-bold">Qual é a sua vibe gastronômica hoje?</h3>
+      <p class="text-xs text-slate-400">Selecionamos combinações que ficam exatamente dentro da faixa de R$ 60–80 por pessoa com alta sinergia de sabor:</p>
+
+      <div class="space-y-3 pt-2">
+        <div onclick="addComboToCart(101, 201)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-lab-amber cursor-pointer transition flex justify-between items-center gap-3">
+          <div>
+            <span class="text-xs font-bold text-lab-amber">🔥 Combo #01: Defumado & Umami</span>
+            <p class="text-xs text-slate-300 mt-0.5">Elixir XV de Novembro + Croquetas de Costela Defumada com Aioli de Alho Negro</p>
+          </div>
+          <span class="font-mono font-bold text-sm text-white shrink-0">R$ 72</span>
+        </div>
+
+        <div onclick="addComboToCart(102, 301)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-lab-emerald cursor-pointer transition flex justify-between items-center gap-3">
+          <div>
+            <span class="text-xs font-bold text-lab-emerald">🌿 Combo #02: Botânico & Smash</span>
+            <p class="text-xs text-slate-300 mt-0.5">Gin Tônica Botânico (Pepino & Cardamomo) + Jolly Lab Burger c/ Cebola Caramelizada</p>
+          </div>
+          <span class="font-mono font-bold text-sm text-white shrink-0">R$ 68</span>
+        </div>
+
+        <div onclick="addComboToCart(103, 203)" class="p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-lab-border hover:border-red-400 cursor-pointer transition flex justify-between items-center gap-3">
+          <div>
+            <span class="text-xs font-bold text-red-400">🌶️ Combo #03: Tropical Picante (Veggie)</span>
+            <p class="text-xs text-slate-300 mt-0.5">Mule de Caju & Gengibre + Dadinhos de Tapioca com Geléia de Pimenta Defumada</p>
+          </div>
+          <span class="font-mono font-bold text-sm text-white shrink-0">R$ 62</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT ENGINE -->
+  <script>
+    const WHATSAPP_NUMBER = "5516996211040";
+
+    const menuItems = [
+      {
+        id: 101,
+        name: "Elixir XV de Novembro",
+        category: "drinks",
+        price: 34.00,
+        code: "LAB-D01",
+        badge: "Assinatura da Casa",
+        mood: "defumado",
+        tags: ["favorito", "sem-gluten"],
+        allergens: "Sem glúten • Sem lactose",
+        pairing: "Harmoniza com: Croquetas de Costela Defumada",
+        desc: "Bourbon infusionado com casca de laranja Bahia, redução de maracujá com pimenta rosa e defumação instantânea de alecrim.",
+        img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 102,
+        name: "Clorofila Gin Botânico",
+        category: "drinks",
+        price: 32.00,
+        code: "LAB-D02",
+        badge: "Refrescante",
+        mood: "citrico",
+        tags: ["veggie", "sem-gluten", "favorito"],
+        allergens: "Vegano • Sem glúten",
+        pairing: "Harmoniza com: Jolly Lab Burger ou Ceviche Tropical",
+        desc: "London Dry Gin, cordial artesanal de manjericão com limão tahiti, lâminas de pepino japonês, cardamomo e água tônica.",
+        img: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 103,
+        name: "Mule do Cerrado (Caju & Gengibre)",
+        category: "drinks",
+        price: 30.00,
+        code: "LAB-D03",
+        badge: "Espuma Artesanal",
+        mood: "picante",
+        tags: ["veggie", "sem-gluten"],
+        allergens: "Sem glúten • Contém derivados de leite na espuma",
+        pairing: "Harmoniza com: Dadinhos de Tapioca c/ Geléia de Pimenta",
+        desc: "Vodka nacional premium, redução de caju tostado, xarope de gengibre fresco, limão cravo e espuma cremosa de cumaru.",
+        img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 201,
+        name: "Croquetas de Costela 12h (6 un.)",
+        category: "petiscos",
+        price: 38.00,
+        code: "LAB-P01",
+        badge: "Mais Pedido",
+        mood: "defumado",
+        tags: ["favorito"],
+        allergens: "Contém glúten (empanamento Panko) e lactose",
+        pairing: "Pede um: Elixir XV de Novembro",
+        desc: "Costela bovina braseada lentamente em cerveja preta, empanada na farinha Panko super crocante. Acompanha aioli de alho negro.",
+        img: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 202,
+        name: "Pancetta Crispy no Caramelo de Missô",
+        category: "petiscos",
+        price: 42.00,
+        code: "LAB-P02",
+        badge: "Experimento",
+        mood: "picante",
+        tags: ["favorito"],
+        allergens: "Contém derivados de soja (missô) e gergelim",
+        pairing: "Pede um: Chope IPA Artesanal",
+        desc: "Cubos de barriga suína pururucados por fora e suculentos por dentro, glaceados em caramelo agridoce de missô, amendoim e cebolinha.",
+        img: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 203,
+        name: "Dadinhos de Tapioca na Brasa (8 un.)",
+        category: "petiscos",
+        price: 32.00,
+        code: "LAB-P03",
+        badge: "Veggie",
+        mood: "picante",
+        tags: ["veggie", "sem-gluten"],
+        allergens: "Contém lactose (Queijo Coalho) • Sem glúten",
+        pairing: "Pede um: Mule do Cerrado",
+        desc: "Dadinhos dourados de queijo coalho artesanal com tapioca granulada, servidos com geléia de pimenta dedo-de-moça e abacaxi defumado.",
+        img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 301,
+        name: "Jolly Lab Burger & Cebola Caramelizada",
+        category: "burgers",
+        price: 36.00,
+        code: "LAB-B01",
+        badge: "Clássico do Lab",
+        mood: "defumado",
+        tags: ["favorito"],
+        allergens: "Contém glúten (Brioche) e lactose",
+        pairing: "Harmoniza com: Clorofila Gin ou Chope IPA",
+        desc: "Blend bovino 160g grelhado na chapa de ferro, queijo cheddar inglês derretido, cebola caramelizada no melaço de cana, picles da casa e maionese defumada no brioche selado. Acompanha fritas rústicas.",
+        img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 302,
+        name: "Shimeji & Gorgonzola Melt Burger",
+        category: "burgers",
+        price: 39.00,
+        code: "LAB-B02",
+        badge: "Umami Puro",
+        mood: "citrico",
+        tags: ["veggie"],
+        allergens: "Opção com Hambúrguer de Grão-de-Bico disponível • Contém glúten e lactose",
+        pairing: "Harmoniza com: Clorofila Gin Botânico",
+        desc: "Escolha entre blend bovino 160g ou disco crocante de cogumelos e grão-de-bico, coberto com creme de gorgonzola suave, shimeji salteado na manteiga de ervas e rúcula selvagem.",
+        img: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 401,
+        name: "Flight de Degustação (4 Chopes Artesanais)",
+        category: "cervejas",
+        price: 35.00,
+        code: "LAB-C01",
+        badge: "Experiência",
+        mood: "citrico",
+        tags: ["veggie", "favorito"],
+        allergens: "Contém glúten (Cevada e Trigo)",
+        pairing: "Ideal para compartilhar na chegada",
+        desc: "Régua de provetas e copos de 140ml com 4 estilos engatados nas torneiras da semana: Pilsen Não Filtrada, Session Citra IPA, Sour de Frutas Vermelhas e Dry Stout.",
+        img: "https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        id: 402,
+        name: "Poção Botânica Zero Álcool (Hibisco & Yuzu)",
+        category: "cervejas",
+        price: 22.00,
+        code: "LAB-C02",
+        badge: "0,0% Álcool",
+        mood: "citrico",
+        tags: ["veggie", "sem-gluten"],
+        allergens: "Vegano • Sem glúten • Sem lactose",
+        pairing: "Refrescância máxima para acompanhar qualquer prato",
+        desc: "Infusão gelada de flor de hibisco, notas cítricas de yuzu e tangerina, xarope de capim-santo e água com gás perolada.",
+        img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    let activeCategory = "todos";
+    let activeTags = new Set();
+    let activeMood = null;
+    let cart = [];
+    let orderMode = "mesa";
+
+    function renderMenu() {
+      const searchQuery = document.getElementById("menu-search").value.toLowerCase();
+      const grid = document.getElementById("menu-grid");
+      const emptyState = document.getElementById("empty-state");
+      const resetBtn = document.getElementById("reset-filter-btn");
+
+      const filtered = menuItems.filter(item => {
+        const matchCat = activeCategory === "todos" || item.category === activeCategory;
+        const matchSearch = item.name.toLowerCase().includes(searchQuery) ||
+                            item.desc.toLowerCase().includes(searchQuery) ||
+                            item.pairing.toLowerCase().includes(searchQuery);
+        const matchMood = !activeMood || item.mood === activeMood;
+        const matchTags = Array.from(activeTags).every(t => item.tags.includes(t));
+        return matchCat && matchSearch && matchMood && matchTags;
+      });
+
+      if (activeCategory !== "todos" || activeTags.size > 0 || activeMood || searchQuery.length > 0) {
+        resetBtn.classList.remove("hidden");
+      } else {
+        resetBtn.classList.add("hidden");
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+      grid.innerHTML = filtered.map(item => `
+        <article class="rounded-2xl bg-lab-card border border-lab-border overflow-hidden flex flex-col justify-between hover:border-slate-600 transition group">
+          <div>
+            <div class="relative h-44 overflow-hidden">
+              <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <div class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md text-lab-amber font-mono text-[10px] font-bold uppercase">
+                ${item.code} • ${item.badge}
+              </div>
+              <div class="absolute bottom-3 right-3 px-3 py-1 rounded-lg bg-black/85 backdrop-blur-md font-mono font-bold text-sm text-white border border-slate-700">
+                R$ ${item.price.toFixed(2).replace('.', ',')}
+              </div>
+            </div>
+
+            <div class="p-4">
+              <h3 class="font-display font-bold text-base text-white group-hover:text-lab-amber transition">${item.name}</h3>
+              <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">${item.desc}</p>
+
+              <!-- Harmonization Box -->
+              <div class="mt-3 p-2.5 rounded-xl bg-slate-900/90 border border-slate-800/80 text-[11px] text-emerald-400 flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 shrink-0"></i>
+                <span>${item.pairing}</span>
+              </div>
+
+              <!-- Allergen Info -->
+              <p class="mt-2 font-mono text-[10px] text-slate-500">ℹ️ ${item.allergens}</p>
+            </div>
+          </div>
+
+          <div class="p-4 pt-0">
+            <button onclick="addToCart(${item.id})" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-lab-amber hover:text-black text-white font-semibold text-xs transition flex items-center justify-center gap-1.5 border border-slate-700">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Adicionar ao Pedido</span>
+            </button>
+          </div>
+        </article>
+      `).join("");
+
+      lucide.createIcons();
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll(".cat-btn").forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = "cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-amber text-black";
+        } else {
+          btn.className = "cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition bg-lab-card text-slate-300 border border-lab-border hover:border-slate-600";
+        }
+      });
+      renderMenu();
+    }
+
+    function toggleTagFilter(tag) {
+      const btn = document.getElementById(`tag-${tag}`);
+      if (activeTags.has(tag)) {
+        activeTags.delete(tag);
+        btn.className = "px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0";
+      } else {
+        activeTags.add(tag);
+        btn.className = "px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-lab-emerald text-emerald-300 font-semibold transition shrink-0";
+      }
+      renderMenu();
+    }
+
+    function applyMoodFilter(mood) {
+      activeMood = activeMood === mood ? null : mood;
+      document.getElementById("cardapio").scrollIntoView({ behavior: "smooth" });
+      renderMenu();
+    }
+
+    function resetFilters() {
+      activeCategory = "todos";
+      activeTags.clear();
+      activeMood = null;
+      document.getElementById("menu-search").value = "";
+      ["veggie", "favorito", "sem-gluten"].forEach(tag => {
+        document.getElementById(`tag-${tag}`).className = "px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition shrink-0";
+      });
+      setCategory("todos");
+    }
+
+    function addToCart(id) {
+      const product = menuItems.find(i => i.id === id);
+      const existing = cart.find(i => i.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCartUI();
+    }
+
+    function addComboToCart(id1, id2) {
+      addToCart(id1);
+      addToCart(id2);
+      closeMatcherModal();
+      toggleCart();
+    }
+
+    function changeQty(id, delta) {
+      const idx = cart.findIndex(i => i.id === id);
+      if (idx > -1) {
+        cart[idx].qty += delta;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
+      const totalValue = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+
+      document.getElementById("header-cart-count").innerText = totalItems;
+      document.getElementById("bottom-cart-count").innerText = totalItems;
+      document.getElementById("bottom-cart-total").innerText = `R$ ${totalValue.toFixed(2).replace('.', ',')}`;
+      document.getElementById("cart-total-value").innerText = `R$ ${totalValue.toFixed(2).replace('.', ',')}`;
+
+      const floatingBar = document.getElementById("floating-cart-bar");
+      if (totalItems > 0) {
+        floatingBar.classList.remove("hidden");
+      } else {
+        floatingBar.classList.add("hidden");
+      }
+
+      const container = document.getElementById("cart-items-container");
+      if (cart.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 text-center py-8">Sua bancada ainda está vazia. Adicione drinks ou petiscos para começar.</p>`;
+      } else {
+        container.innerHTML = cart.map(item => `
+          <div class="p-3 rounded-xl bg-slate-900 border border-lab-border flex items-center justify-between gap-3">
+            <div>
+              <h4 class="text-xs font-bold text-white">${item.name}</h4>
+              <span class="font-mono text-xs text-lab-amber">R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 rounded-lg bg-slate-800 text-white text-xs font-bold">-</button>
+              <span class="font-mono text-xs w-4 text-center">${item.qty}</span>
+              <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 rounded-lg bg-lab-amber text-black text-xs font-bold">+</button>
+            </div>
+          </div>
+        `).join("");
+      }
+    }
+
+    function toggleCart() {
+      const modal = document.getElementById("cart-modal");
+      modal.classList.toggle("hidden");
+    }
+
+    function setOrderMode(mode) {
+      orderMode = mode;
+      const input = document.getElementById("order-detail-input");
+      ["mesa", "viagem", "entrega"].forEach(m => {
+        const btn = document.getElementById(`mode-${m}`);
+        if (m === mode) {
+          btn.className = "py-2 px-2 rounded-xl font-semibold border border-lab-amber bg-amber-500/15 text-lab-amber";
+        } else {
+          btn.className = "py-2 px-2 rounded-xl font-semibold border border-lab-border bg-slate-900 text-slate-400";
+        }
+      });
+
+      if (mode === "mesa") input.placeholder = "Número da Mesa ou Comanda (ex: Mesa 08)";
+      if (mode === "viagem") input.placeholder = "Seu Nome e Horário para Retirada no Balcão";
+      if (mode === "entrega") input.placeholder = "Endereço completo em São Carlos para Delivery";
+    }
+
+    function checkoutWhatsApp() {
+      if (cart.length === 0) return alert("Adicione pelo menos 1 item ao seu pedido!");
+      const detail = document.getElementById("order-detail-input").value || "Não informado";
+      const total = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+
+      let modeLabel = "Refeição no Local (Mesa)";
+      if (orderMode === "viagem") modeLabel = "Para Viagem (Retirada)";
+      if (orderMode === "entrega") modeLabel = "Entrega (Delivery)";
+
+      let msg = `*🧪 NOVO PEDIDO — JOLLY GASTRO LAB*\n`;
+      msg += `*Modalidade:* ${modeLabel}\n`;
+      msg += `*Identificação/Local:* ${detail}\n\n`;
+      msg += `*Itens da Bancada:*\n`;
+      cart.forEach(i => {
+        msg += `• ${i.qty}x ${i.name} (R$ ${(i.price * i.qty).toFixed(2).replace('.', ',')})\n`;
+      });
+      msg += `\n*Total Estimado:* R$ ${total.toFixed(2).replace('.', ',')}`;
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function sendCustomReservation() {
+      const name = document.getElementById("res-name").value || "Cliente";
+      const guests = document.getElementById("res-guests").value;
+      const time = document.getElementById("res-time").value;
+      const area = document.getElementById("res-area").value;
+
+      const msg = `Olá, equipe do *Jolly Gastro Lab*! 🍸\nGostaria de solicitar uma reserva de mesa:\n\n• *Nome:* ${name}\n• *Pessoas:* ${guests}\n• *Horário:* ${time}\n• *Preferência:* ${area}`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function sendWhatsAppReservation() {
+      const msg = `Olá, equipe do *Jolly Gastro Lab*! Gostaria de consultar a disponibilidade de mesas para hoje.`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function openMatcherModal() {
+      document.getElementById("matcher-modal").classList.remove("hidden");
+    }
+
+    function closeMatcherModal() {
+      document.getElementById("matcher-modal").classList.add("hidden");
+    }
+
+    // Init
+    window.addEventListener("DOMContentLoaded", () => {
+      renderMenu();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
